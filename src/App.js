@@ -6,16 +6,18 @@ function App() {
   //THE STATES
   const [percentage, setpercentage] = useState(0)
   const [iconsRendered, seticonsrendered] = useState([])
+  const [inview, setinview] = useState(false);
 
   //THE CONFIGS
-  let inview = true;
   let explode = true;
   let flipIcon = true
   let transition = 1
   let distributionQuadrants = [2, 3, 2, 3]
   let bits = 10;
   let widthCoverage = 0.9
+  let increment = 0.005
   let heightCoverage = 0.8
+  let iconSize = 90
   let icons = [
     './icons/1.png',
     './icons/2.png',
@@ -39,6 +41,8 @@ function App() {
     icon: {
       position: 'absolute',
       transition: explode ? transition+'s' : '0.2s',
+      width: iconSize, height: iconSize,
+      userSelect: 'none'
 
 
     }
@@ -50,10 +54,18 @@ function App() {
   React.useEffect(() => {
     if (percentage >= 1 && percentage <= 2 ) {
       setTimeout(() => {
-        setpercentage(prevPercentage => prevPercentage + 0.0025);
+        setpercentage(prevPercentage => prevPercentage + increment);
       }, percentage >= 1.1 ? 200 : (transition)*1000);
     }
   }, [percentage]);
+
+  React.useEffect(()=>{
+if(inview){
+  setpercentage(1)
+}else{
+  setpercentage(0)
+}
+  }, [inview])
 
 
 
@@ -127,7 +139,7 @@ function App() {
 
       //all ready to push
       tempicons.push({
-        Func: ({ style }) => { return (<img className='icon' style={{ ...styles.icon, ...style, ...{animation: `${flip ? 'torto' : 'torto2'} 20s linear infinite`} }} src={randssrc} />) },
+        Func: ({ style }) => { return (<img draggable='false' className='icon' style={{ ...styles.icon, ...style, ...{animation: `${flip ? 'torto' : 'torto2'} 20s linear infinite`} }} src={randssrc} />) },
         intiailRotate: rotate,
         othertransformations,
         destinyX,
@@ -141,8 +153,8 @@ function App() {
   }, [])
   return (
     <>
-      <input max={1} step={0.1} style={{ position: 'absolute', left: '0' }} type='range' value={percentage} onChange={(e) => { setpercentage(e.target.value) }} />
-      <button style={{ position: 'absolute', left: '0' }} onClick={() => (setpercentage(1))}>hello</button>
+      {/* <input max={1} step={0.1} style={{ position: 'absolute', left: '0' }} type='range' value={percentage} onChange={(e) => { setpercentage(e.target.value) }} /> */}
+      <button style={{ position: 'absolute', left: '0' }} onClick={() => (setinview(!inview))}>hello</button>
       <div style={styles.mainContainer}>
         {iconsRendered.map(({ Func, destinyTheta, destinyX, destinyY, intiailRotate, othertransformations }) => {
 
