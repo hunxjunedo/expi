@@ -1,0 +1,1 @@
+export {default as Expi} from './components/expi.js'
