@@ -1,4 +1,3 @@
-import CircularSlider from '@fseehawer/react-circular-slider';
 import './App.css';
 import { Expli } from 'expli';
 import { useEffect, useState } from 'react';
