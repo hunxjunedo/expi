@@ -2,7 +2,7 @@
 import React, { useState } from 'react';
 // import './App.css';
 
-export default function Expi({explode, percentage, maxexpansion, setpercentage,  flipIcon, style:inputstyles, inview, setinview, transition, distributionQuadrants, bits, widthCoverage, increment, heightCoverage, iconSize, icons}) {
+export default function Expli({explode, percentage, maxexpansion, setpercentage,  flipIcon, style:inputstyles, inview, setinview, transition, distributionQuadrants, bits, widthCoverage, increment, heightCoverage, iconSize, icons}) {
   //THE STATES
  
   const [iconsRendered, seticonsrendered] = useState([])
